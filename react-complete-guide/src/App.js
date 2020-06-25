@@ -9,7 +9,8 @@ class App extends Component {
       { name: "Manu", age: 29 },
       { name: "Stephanie", age: 26 }
     ],
-    otherState: "some other value"
+    otherState: "some other value",
+    showPersons: false,
   };
 
   switchNameHandler = (newName) => {
@@ -31,7 +32,11 @@ class App extends Component {
         { name: "Stephanie", age: 27 }
       ]
     });
-  }
+  };
+
+  togglePersonsHandler = () => {
+    this.setState({showPersons: !this.state.showPersons});
+  };
 
   render() {
     // Inline styling
@@ -43,29 +48,35 @@ class App extends Component {
       cursor: "pointer",
     };
 
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={ this.state.persons[0].name }
+            age={ this.state.persons[0].age }
+          />
+
+          <Person
+            name={ this.state.persons[1].name }
+            age={ this.state.persons[1].age }
+          />
+
+          <Person
+            name={ this.state.persons[2].name }
+            age={ this.state.persons[2].age }
+          />
+        </div>);
+    }
+
     return (
       <div className="App">
         <h1>Hi, I am a React App</h1>
         <p>This is really working!</p>
         <button
-          style={style}
-          onClick={() => this.switchNameHandler("SMAX")}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "Chris")}
-          changed={this.nameChangedHandler}
-        />
-
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-        />
+          style={ style }
+          onClick={ this.togglePersonsHandler }>Toggle persons</button>
+        { persons }
       </div>
     );
     // This is what render actually does
