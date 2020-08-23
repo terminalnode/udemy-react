@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import classes from "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
+import functionalWithClass from "../hoc/functionalWithClass";
+import Aux from "../hoc/Aux";
 
 class App extends Component {
   constructor(props) {
@@ -73,7 +75,7 @@ class App extends Component {
     }
 
     return (
-      <div className={ classes.App }>
+      <Aux>
         <Cockpit
           appTitle={ this.props.appTitle }
           subTitle="This is really working!"
@@ -82,7 +84,7 @@ class App extends Component {
           useHideStyling={ this.state.showPersons }
         />
         { persons }
-      </div>
+      </Aux>
     );
 
     // This is what render actually does
@@ -90,4 +92,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default functionalWithClass(App, classes.App);
