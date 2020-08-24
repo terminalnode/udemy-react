@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import classes from "./Person.css";
-import WithClass from "../../../hoc/WithClass";
+import Aux from "../../../hoc/Aux"
+import functionalWithClass from "../../../hoc/functionalWithClass";
 
 class Person extends Component {
   render() {
     console.log("[Person.js] render");
 
     return (
-      <WithClass classes={ classes.Person }>
+      <Aux>
         <p onClick={ this.props.click }>
           I'm { this.props.name }, and I'm { this.props.age } years old!
         </p>
@@ -18,9 +19,9 @@ class Person extends Component {
           onChange={ this.props.changed }
           value={ this.props.name }
         />
-      </WithClass>
+      </Aux>
     );
   };
 }
 
-export default Person;
+export default functionalWithClass(Person, classes.Person);
