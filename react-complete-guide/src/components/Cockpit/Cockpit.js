@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./Cockpit.css";
 
 const cockpit = props => {
+  const toggleBtnRef = useRef(null);
+
   // useEffect is basically componentDidMount and componentDidUpdate in one
   // it triggers on every update cycle
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
 
     // Emulated http request
-    setTimeout(() => {
-      console.log("[Cockpit.js] Ouf, that was some heavy lifting.");
-    }, 1000)
+    // setTimeout(() => {
+    //   console.log("[Cockpit.js] Ouf, that was some heavy lifting.");
+    // }, 1000)
 
+    toggleBtnRef.current.click();
     return () => {
       // This will run before the component is unmounted, basically same
       // as componentWillUnmount. In this app that is... never.
@@ -52,6 +55,7 @@ const cockpit = props => {
         { props.subTitle ? props.subTitle : "This is the subtitle" }
       </p>
       <button
+        ref={ toggleBtnRef }
         className={ buttonClass }
         onClick={ props.click ? props.click : () => alert("Button was clicked! That tickles!") }>
         { props.buttonText ? props.buttonText : "Toggle" }
