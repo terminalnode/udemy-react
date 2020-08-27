@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import classes from "./Cockpit.css";
+import AuthContext from "../../context/auth-context";
 
 const cockpit = props => {
   const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
 
   // useEffect is basically componentDidMount and componentDidUpdate in one
   // it triggers on every update cycle
@@ -59,6 +61,10 @@ const cockpit = props => {
         className={ buttonClass }
         onClick={ props.click ? props.click : () => alert("Button was clicked! That tickles!") }>
         { props.buttonText ? props.buttonText : "Toggle" }
+      </button>
+      <button
+        onClick={ authContext.login }>
+        { props.loginButtonText ? props.loginButtonText : "Log in" }
       </button>
     </div>
   );

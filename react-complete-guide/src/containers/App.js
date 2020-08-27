@@ -4,6 +4,7 @@ import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 import functionalWithClass from "../hoc/functionalWithClass";
 import Aux from "../hoc/Aux";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
     ],
     otherState: "some other value",
     showPersons: false,
+    authenticated: false,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -58,6 +60,10 @@ class App extends Component {
     this.setState({showPersons: !this.state.showPersons});
   };
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
+
   render() {
     console.log("[App.js] render");
 
@@ -70,20 +76,29 @@ class App extends Component {
           persons={ this.state.persons }
           click={ this.deletePersonHandler }
           changed={ this.nameChangedHandler }
+          isAuthenticated={ this.state.authenticated }
         />
       );
     }
 
     return (
       <Aux>
-        <Cockpit
-          appTitle={ this.props.appTitle }
-          subTitle="This is really working!"
-          click={ this.togglePersonsHandler }
-          listLength={ this.state.persons.length }
-          useHideStyling={ this.state.showPersons }
-        />
-        { persons }
+        <AuthContext.Provider
+          value={{
+          authenticated: this.state.authenticated,
+          login: this.loginHandler
+          }} >
+          <Cockpit
+            appTitle={ this.props.appTitle }
+            subTitle="This is really working!"
+            click={ this.togglePersonsHandler }
+            listLength={ this.state.persons.length }
+            useHideStyling={ this.state.showPersons }
+            loginButtonText="Sign in"
+            loginFunction={ this.loginHandler }
+          />
+          { persons }
+        </AuthContext.Provider>
       </Aux>
     );
 
