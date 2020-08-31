@@ -1,12 +1,18 @@
 import React from "react";
 
-import Aux from "../../hoc/Aux";
+import styles from "./Burger.module.css";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
-const burger = (props) => {
+const burger = (_) => {
   return (
-    <Aux>
-      <div />
-    </Aux>
+    <div className={ styles.Burger }>
+      <BurgerIngredient type="bread-top" />
+      <BurgerIngredient type="salad" />
+      <BurgerIngredient type="bacon" />
+      <BurgerIngredient type="cheese" />
+      <BurgerIngredient type="meat" />
+      <BurgerIngredient type="bread-bottom" />
+    </div>
   );
 };
 
