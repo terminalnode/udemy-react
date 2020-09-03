@@ -19,7 +19,7 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0,
     },
-    totalPrice: 0
+    totalPrice: 4
   };
 
   addIngredientHandler = (type) => {
@@ -60,14 +60,18 @@ class BurgerBuilder extends Component {
       .keys(disabledLessButtons)
       .map(key => disabledLessButtons[key] = disabledLessButtons[key] <= 0);
 
+    const disabledPlaceOrderButton = Object.values(this.state.ingredients)
+      .reduce((acc, cur) => acc + cur, 0) === 0;
+
     return (
       <Aux>
         <Burger ingredients={ this.state.ingredients } />
         <BuildControls
           ingredientAdded={ this.addIngredientHandler }
           ingredientRemoved={ this.removeIngredientHandler }
-          disabledLessButtons={ disabledLessButtons }
           currentPrice={ this.state.totalPrice }
+          disabledPlaceOrderButton={ disabledPlaceOrderButton }
+          disabledLessButtons={ disabledLessButtons }
         />
       </Aux>
     );

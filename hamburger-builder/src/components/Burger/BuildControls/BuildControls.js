@@ -22,6 +22,11 @@ const buildControls = (props) => (
           disableLessButton={ props.disabledLessButtons[control.type] }
     />
     )}
+    <button
+      className={ styles.OrderButton }
+      disabled={ props.disabledPlaceOrderButton }>
+        Place order
+    </button>
   </div>
 );
 
