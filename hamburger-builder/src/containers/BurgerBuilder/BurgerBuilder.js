@@ -63,7 +63,11 @@ class BurgerBuilder extends Component {
 
   setPurchasingFalse = (_) => {
     this.setState({ purchasing: false });
-  }
+  };
+
+  proceedWithPurchaseHandler = (_) => {
+    console.log("Continueeeeee");
+  };
 
   render() {
     const disabledLessButtons = { ...this.state.ingredients }
@@ -79,7 +83,11 @@ class BurgerBuilder extends Component {
         <Modal
           show={ this.state.purchasing }
           modalClosed={ this.setPurchasingFalse }>
-          <OrderSummary ingredients={ this.state.ingredients } />
+          <OrderSummary
+            price={ this.state.totalPrice }
+            cancelButtonClick={ this.setPurchasingFalse }
+            proceedButtonClick={ this.proceedWithPurchaseHandler }
+            ingredients={ this.state.ingredients } />
         </Modal>
         <Burger ingredients={ this.state.ingredients } />
         <BuildControls
